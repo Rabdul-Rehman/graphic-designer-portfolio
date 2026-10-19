@@ -54,15 +54,19 @@ function App(){
    const cover=document.querySelector<HTMLElement>('.cover');
    const title=document.querySelector<HTMLElement>('.cover-title-word');
    const button=document.querySelector<HTMLElement>('.cover .scroll-cta');
+   const orbitA=document.querySelector<HTMLElement>('.cover-orbit-a');
+   const orbitB=document.querySelector<HTMLElement>('.cover-orbit-b');
    if(!cover)return;
    const track=(ev:PointerEvent)=>{
      const r=cover.getBoundingClientRect();
      const x=(ev.clientX-r.left)/r.width, y=(ev.clientY-r.top)/r.height;
      cover.style.setProperty('--spot-x',(x*100).toFixed(1)+'%');
      cover.style.setProperty('--spot-y',(y*100).toFixed(1)+'%');
-     if(title)gsap.to(title,{x:(x-.5)*20,y:(y-.5)*11,duration:.9,ease:'power3.out',overwrite:'auto'});
+     if(title)gsap.to(title,{x:(x-.5)*50,y:(y-.5)*24,rotationY:(x-.5)*7,duration:.8,ease:'power3.out',overwrite:'auto'});
+     if(orbitA)gsap.to(orbitA,{x:(x-.5)*-38,y:(y-.5)*-28,duration:1.2,ease:'power2.out',overwrite:'auto'});
+     if(orbitB)gsap.to(orbitB,{x:(x-.5)*35,y:(y-.5)*26,duration:1.2,ease:'power2.out',overwrite:'auto'});
    };
-   const reset=()=>{if(title)gsap.to(title,{x:0,y:0,duration:.8,ease:'power3.out'});if(button)gsap.to(button,{x:0,y:0,duration:.45,ease:'power3.out'})};
+   const reset=()=>{if(title)gsap.to(title,{x:0,y:0,rotationY:0,duration:.8,ease:'power3.out'});if(button)gsap.to(button,{x:0,y:0,duration:.45,ease:'power3.out'})};
    const buttonMove=(ev:PointerEvent)=>{if(!button)return;const r=button.getBoundingClientRect();gsap.to(button,{x:(ev.clientX-r.left-r.width/2)*.13,y:(ev.clientY-r.top-r.height/2)*.18,duration:.45,ease:'power3.out',overwrite:'auto'})};
    cover.addEventListener('pointermove',track);
    cover.addEventListener('pointerleave',reset);
@@ -75,10 +79,10 @@ function App(){
    if(window.matchMedia('(prefers-reduced-motion: reduce), (hover: none), (pointer: coarse)').matches)return;
    const cards=Array.from(document.querySelectorAll<HTMLElement>('.real-project, .logo-tile, .content-item'));
    const cleanups=cards.map(card=>{
-     const max=card.classList.contains('real-project')?8:5;
-     const toX=gsap.quickTo(card,'rotationX',{duration:.48,ease:'power3.out'});
+     const max=card.classList.contains('real-project')?19:card.classList.contains('logo-tile')?15:12;
+     const toX=gsap.quickTo(card,'rotationX',{duration:.32,ease:'power2.out'});
      const toY=gsap.quickTo(card,'rotationY',{duration:.48,ease:'power3.out'});
-     gsap.set(card,{transformPerspective:850,transformOrigin:'50% 50%',transformStyle:'preserve-3d'});
+     gsap.set(card,{transformPerspective:620,transformOrigin:'50% 50%',transformStyle:'preserve-3d'});
      const move=(ev:PointerEvent)=>{
        const r=card.getBoundingClientRect();
        const x=(ev.clientX-r.left)/r.width-.5;
@@ -130,6 +134,19 @@ function App(){
 .cover .cover-bottom{z-index:3}
 @media(max-width:700px){.cover .cover-content{padding:100px 3%}.cover .cover-title-word{font-size:clamp(44px,11.4vw,90px)}.cover .cover-small{gap:7px;letter-spacing:.2em}.cover .hero-line{width:24px}.cover .cover-lead{margin-top:43px}.cover-scroll-indicator{bottom:55px}.cover .cover-bottom{bottom:15px}.cover-star{opacity:.35}}
 @media(prefers-reduced-motion:reduce){.cover-scroll-indicator span{animation:none}.cover .cover-content,.cover .cover-title-word{will-change:auto}}
+
+
+/* Enhanced realtime hero and pronounced 3D card depth */
+.cover .cover-title-word{filter:drop-shadow(0 22px 35px #29030d61);transition:filter .45s}
+.cover .cover-title-word:hover{filter:drop-shadow(0 28px 55px #f29f7055)}
+.cover .cover-glow{animation:premium-hero-breathe 7s ease-in-out infinite alternate}
+.cover .cover-star-a{animation:premium-star-pulse 4.2s ease-in-out infinite alternate}
+.cover .cover-star-b{animation:premium-star-pulse 5.1s ease-in-out infinite alternate-reverse}
+@keyframes premium-hero-breathe{from{opacity:.1;transform:scale(.85)}to{opacity:.33;transform:scale(1.16)}}
+@keyframes premium-star-pulse{from{opacity:.3;filter:blur(0px)}to{opacity:.82;filter:blur(1.5px)}}
+.real-project,.logo-tile,.content-item{backface-visibility:hidden;transform-style:preserve-3d;transform-origin:center center}
+.real-project:hover{box-shadow:0 32px 65px #160b113f!important}
+@media(prefers-reduced-motion:reduce){.cover .cover-glow,.cover .cover-star{animation:none!important}}
 
 /* Premium hover treatments: children animate independently from GSAP-revealed cards. */
 .real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
