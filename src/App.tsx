@@ -14,6 +14,7 @@ function HeadingPanel({word,detail}:{word:string;detail:string}){return <section
 function Accents(){return <div className="accents" aria-hidden="true"><span/><span/><span/></div>}
 function App(){
  const [progress,setProgress]=useState(0);
+ const [liked,setLiked]=useState(false);
  useEffect(()=>{let raf=0;const onScroll=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>setProgress(window.scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)))};onScroll();window.addEventListener('scroll',onScroll,{passive:true});return()=>{cancelAnimationFrame(raf);window.removeEventListener('scroll',onScroll)}},[]);
  useEffect(()=>{
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -29,6 +30,9 @@ function App(){
     gsap.to('.cover-orbit-b',{rotation:-360,duration:110,repeat:-1,ease:'none'});
     gsap.to('.cover-star',{y:-14,rotation:24,duration:3.5,repeat:-1,yoyo:true,stagger:.5,ease:'sine.inOut'});
     gsap.to('.cover-content',{y:-65,opacity:.55,ease:'none',scrollTrigger:{trigger:'.cover',start:'top top',end:'bottom top',scrub:true}});
+    gsap.fromTo('.thanks-kicker, .thanks-title, .thanks-message, .thanks-actions',{y:65,autoAlpha:0,filter:'blur(9px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:1.1,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'.thanks-section',start:'top 70%',once:true}});
+    gsap.to('.thanks-spark',{rotation:25,y:-16,repeat:-1,yoyo:true,duration:3,stagger:.3,ease:'sine.inOut'});
+
     gsap.fromTo('.hello-copy > *',{y:62,autoAlpha:0},{y:0,autoAlpha:1,duration:1,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.intro-section',start:'top 70%',once:true}});
     gsap.fromTo('.portrait-arch',{autoAlpha:0,y:42,scale:.95},{autoAlpha:1,y:0,scale:1,duration:1.25,ease:'power3.out',scrollTrigger:{trigger:'.intro-section',start:'top 66%',once:true}});
     gsap.fromTo('.portrait-img',{autoAlpha:0},{autoAlpha:1,duration:1.1,ease:'power2.out',scrollTrigger:{trigger:'.intro-section',start:'top 65%',once:true}});
@@ -162,6 +166,26 @@ function App(){
 @media(max-width:650px){.portrait-stage .portrait-orbit-track{width:min(90vw,370px)}.portrait-stage .orbit-track-two{width:min(96vw,400px)}.cover .cover-title-word{font-size:clamp(47px,10vw,78px)!important}}
 @media(prefers-reduced-motion:reduce){.portrait-stage .portrait-orbit-track{animation:none!important}}
 
+
+/* Closing thank-you page inspired by the reference */
+.thanks-section{position:relative;isolation:isolate;min-height:85svh;padding:100px 6% 80px;overflow:hidden;color:#f9f0e8;background:radial-gradient(ellipse at 45% 38%,#8f201e 0%,#581318 68%,#320d13 100%);display:grid;place-items:center;text-align:center}
+.thanks-bg-pattern{position:absolute;inset:0;opacity:.17;pointer-events:none;background:repeating-radial-gradient(circle at 51% 50%,transparent 0 72px,#f5bdb81c 73px,#f5bdb81c 75px,transparent 76px 142px)}
+.thanks-inner{position:relative;width:min(100%,1200px);z-index:2}
+.thanks-kicker{color:#f5d3be;font-size:clamp(10px,1vw,14px);letter-spacing:.22em;font-weight:800;margin-bottom:30px}
+.thanks-arrow{color:#afeb49;font:italic 60px Georgia,serif;display:block;transform:rotate(-25deg);line-height:1.25}
+.thanks-title{font:900 clamp(51px,7.5vw,118px)/1.1 'DM Sans',Arial,sans-serif;letter-spacing:-.07em;margin:0 auto 32px;text-wrap:balance;text-shadow:0 12px 36px #21040d77}
+.thanks-title span{color:#b1e755}
+.thanks-message{font-size:clamp(15px,1.4vw,21px);line-height:1.75;color:#f2d7d0}
+.thanks-message strong{color:#b7ea50}.thanks-message span{color:#b8ee52}
+.thanks-actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin:35px 0 60px}
+.thanks-actions .thanks-like,.thanks-actions .thanks-top{appearance:none;border:1px solid #e6c8b688;color:#fff;background:#ffffff10;padding:17px 23px;font-size:12px;font-weight:800;letter-spacing:.12em;border-radius:4px;cursor:pointer;transition:background .3s,color .3s,transform .3s,box-shadow .3s}
+.thanks-actions .thanks-like{background:#b2e95a;color:#272418;border-color:#b2e95a}
+.thanks-actions .thanks-like:hover,.thanks-actions .thanks-top:hover{transform:translateY(-5px);box-shadow:0 14px 28px #21050860}
+.thanks-actions .thanks-like span{padding-left:15px}.thanks-endnote{font-size:10px;letter-spacing:.17em;color:#dab5af}
+.thanks-spark{position:absolute;z-index:1;color:#c8ed74;font-size:clamp(25px,4vw,55px);pointer-events:none}.thanks-spark-one{top:19%;left:12%}.thanks-spark-two{right:14%;top:26%;color:#f4a17e}.thanks-spark-three{bottom:17%;left:24%;color:#eccd8c}
+@media(max-width:600px){.thanks-section{min-height:75svh;padding:75px 5%}.thanks-title{font-size:clamp(48px,11vw,72px)}.thanks-actions{margin-bottom:35px}}
+@media(prefers-reduced-motion:reduce){.thanks-spark{animation:none}}
+
 /* Premium hover treatments: children animate independently from GSAP-revealed cards. */
 .real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
 .real-project:hover{box-shadow:0 24px 58px #18231732!important;background:#f0f5e8}
@@ -195,6 +219,7 @@ function App(){
  <HeadingPanel word="FOOD CAMPAIGNS" detail="Appetizing promotional visuals designed for bold, memorable food brands."/>
  <section className="thumbnail-section light-section" id="thumbnails"><div className="section-top"><span className="eyebrow">08 / FOOD ADVERTISING</span><span>DOLPHIN FOODS CAMPAIGN</span></div><div className="real-project-grid featured-three">{projects.slice(5,8).map(project=><a className="real-project" key={project.name} href={project.src} target="_blank" rel="noreferrer"><img src={project.src} alt={project.name} loading="lazy"/><div><strong>{project.name}</strong><span>{project.brand} ↗</span></div></a>)}</div><Accents/></section>
  <section className="final-section heading-panel" id="contact"><div className="panel-grid"/><span className="eyebrow">THE NEXT GREAT PROJECT STARTS HERE</span><h2>LET'S MAKE<br/><em>SOMETHING</em><br/>GREAT.</h2><a href="https://wa.me/923258757668?text=Hi%20Abubakar%2C%20I%27d%20like%20to%20discuss%20a%20design%20project." target="_blank" rel="noopener noreferrer">GET IN TOUCH ↗</a><p>THANK YOU FOR EXPLORING MY PORTFOLIO.</p></section>
+ <section className="thanks-section" id="thanks"><div className="thanks-bg-pattern" aria-hidden="true"/><div className="thanks-spark thanks-spark-one" aria-hidden="true">✧</div><div className="thanks-spark thanks-spark-two" aria-hidden="true">✦</div><div className="thanks-spark thanks-spark-three" aria-hidden="true">✳</div><div className="thanks-inner"><div className="thanks-kicker"><span className="thanks-arrow">↗</span> MADE IT ALL THE WAY DOWN?</div><h2 className="thanks-title">Thanks For <span>Scrolling!</span></h2><p className="thanks-message">Don't forget to hit <strong>LIKE</strong> if you enjoyed my portfolio!<br/>I really appreciate it. <span>✳</span></p><div className="thanks-actions"><button type="button" className="thanks-like" aria-pressed={liked} onClick={()=>setLiked(v=>!v)}>{liked?'♥ LIKED':'♡ LIKE THIS PORTFOLIO'} <span>{liked?'THANK YOU!':'↗'}</span></button><a className="thanks-top" href="#top">BACK TO TOP ↑</a></div><span className="thanks-endnote">CREATED WITH PASSION · ABUBAKAR © {new Date().getFullYear()}</span></div></section>
  <footer><span>© {new Date().getFullYear()} DESIGNFOLIO</span><a href="#top">BACK TO TOP ↑</a><span>MADE WITH PURPOSE.</span></footer>
  </main>
 }
