@@ -1,0 +1,35 @@
+name: Synchronize premium portfolio dependencies
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-premium-dependencies.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Update npm lockfile for GSAP
+        run: npm install --package-lock-only --no-audit --no-fund
+      - name: Check installation and production build
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: Publish corrected lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Fix GSAP dependency lockfile for Cloudflare build"
+            git push origin HEAD:main
+          fi
