@@ -25,12 +25,41 @@ function App(){
     gsap.fromTo('.portrait-img',{scale:1.13,y:32},{scale:1,y:0,duration:1.8,ease:'power3.out',scrollTrigger:{trigger:'.intro-section',start:'top 65%',once:true}});
     gsap.to('.portrait-orbit',{rotation:110,ease:'none',scrollTrigger:{trigger:'.intro-section',start:'top bottom',end:'bottom top',scrub:true}});
     gsap.utils.toArray<HTMLElement>('.heading-content, .section-big, .contents-heading, .campaign-feature').forEach(el=>{gsap.fromTo(el,{y:75,autoAlpha:0},{y:0,autoAlpha:1,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%',once:true}})});
-    gsap.utils.toArray<HTMLElement>('.real-project,.logo-tile,.content-item').forEach(el=>{gsap.fromTo(el,{y:54,autoAlpha:0},{y:0,autoAlpha:1,duration:.85,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 95%',once:true}})});
-    gsap.utils.toArray<HTMLElement>('.real-project img').forEach(el=>{gsap.fromTo(el,{scale:1.08},{scale:1,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}})});
+    gsap.utils.toArray<HTMLElement>('.real-project-grid, .logo-grid, .contents-grid').forEach(grid=>{
+      const cards=Array.from(grid.children) as HTMLElement[];
+      cards.forEach((el,i)=>{
+        gsap.fromTo(el,{x:i%2===0?-65:65,y:28,autoAlpha:0,rotate:i%2===0?-1.5:1.5},
+          {x:0,y:0,autoAlpha:1,rotate:0,duration:1.05,delay:(i%4)*.09,ease:'power3.out',clearProps:'transform,opacity,visibility',
+            scrollTrigger:{trigger:el,start:'top 94%',once:true}});
+      });
+    });
+    gsap.utils.toArray<HTMLElement>('.section-top, .panel-small, .heading-panel:not(.cover):not(.final-section) .panel-number').forEach(el=>{
+      gsap.fromTo(el,{y:25,autoAlpha:0},{y:0,autoAlpha:1,duration:.8,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+    });
+    
   });
   return()=>{ctx.revert();};
  },[]);
- return <main id="top"><div className="progress" style={{transform:`scaleX(${progress})`}}/><nav className="navigation"><a href="#top" className="mini-brand">DESIGN<span>FOLIO</span></a><div><a href="#contents">Explore</a><a href="#branding">Branding</a><a href="#social">Social media</a><a href="#contact">Contact ↗</a></div></nav>
+ return <main id="top"><style>{`
+/* Premium hover treatments: children animate independently from GSAP-revealed cards. */
+.real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
+.real-project:hover{box-shadow:0 24px 58px #18231732!important;background:#f0f5e8}
+.real-project:before{content:'';position:absolute;inset:0 0 70px;pointer-events:none;background:linear-gradient(180deg,transparent 55%,#111a1666);z-index:2;opacity:0;transition:opacity .55s}
+.real-project:hover:before{opacity:1}
+.real-project img{transition:transform .75s cubic-bezier(.2,.75,.2,1),filter .55s!important;transform-origin:center;will-change:transform}
+.real-project:hover img{transform:scale(1.075)!important;filter:saturate(1.13) contrast(1.04)!important}
+.real-project div{position:relative;z-index:3;transition:padding .35s}
+.real-project:hover div{padding-left:19px}
+.logo-tile{transition:box-shadow .45s,background .45s,border-radius .45s!important;overflow:hidden}
+.logo-tile:hover{background:#e3efd9!important;box-shadow:0 22px 48px #24371b25!important;border-radius:22px}
+.logo-tile img{transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .5s}
+.logo-tile:hover img{transform:scale(1.09) rotate(-2deg);filter:drop-shadow(0 12px 13px #23361c2b)}
+.content-item{position:relative;overflow:hidden}
+.content-item:before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent,#b9ed7e55,transparent);transform:translateX(-120%);transition:transform .7s;pointer-events:none}
+.content-item:hover:before{transform:translateX(120%)}
+@media (hover:none){.real-project img{will-change:auto}}
+@media(prefers-reduced-motion:reduce){.real-project img,.logo-tile img,.real-project,.logo-tile,.content-item:before{transition:none!important;transform:none!important}}
+`}</style><div className="progress" style={{transform:`scaleX(${progress})`}}/><nav className="navigation"><a href="#top" className="mini-brand">DESIGN<span>FOLIO</span></a><div><a href="#contents">Explore</a><a href="#branding">Branding</a><a href="#social">Social media</a><a href="#contact">Contact ↗</a></div></nav>
  <section className="cover heading-panel"><div className="panel-grid"/><div className="cover-content"><span className="overline">THE SELECTED WORK OF A GRAPHIC DESIGNER</span><span className="cover-small">GRAPHIC DESIGN</span><h1>PORTFOLIO<span className="swash cover-swash">❧</span></h1><p>Ideas brought to life through bold visuals and thoughtful design.</p><a href="#hello" className="scroll-cta">EXPLORE THE PORTFOLIO <span>↓</span></a></div><div className="cover-bottom"><span>VISUAL IDENTITY · DIGITAL · PRINT</span><span>EST. 2026</span></div></section>
  <section className="intro-section" id="hello"><Accents/><div className="hello-copy"><span className="eyebrow">01 / THE DESIGNER BEHIND THE WORK</span><h2>HELLO<span>!</span></h2><div style={{fontFamily:"DM Sans, Arial, sans-serif",fontSize:"clamp(24px, 3.5vw, 48px)",fontWeight:900,letterSpacing:"-.045em",lineHeight:1.1,color:"#2a2b24",marginTop:"-14px",marginBottom:"20px"}}>ABUBAKAR\u0027S</div><div className="scribble">Great to have you here.</div><p className="intro-name">I'm a graphic designer who turns ideas into memorable visual stories.</p><p>From distinctive logos to dynamic social media campaigns, I create purposeful identities and visuals that help brands connect with people.</p><a href="#branding" className="intro-link">DISCOVER MY WORK <span>↗</span></a><div className="intro-caption">CREATIVE THINKING · DESIGN WITH PURPOSE · 2026</div></div><div className="portrait-stage"><span className="portrait-behind-text" aria-hidden="true">CREATE<br/>INSPIRE</span><div className="portrait-orbit" aria-hidden="true"></div><div className="portrait-arch"><div className="portrait-halo"></div><img className="portrait-img" style={{width:"90%",height:"90%",objectFit:"contain",objectPosition:"center bottom",marginInline:"auto"}} src="/images/designer-portrait.webp" alt="Graphic designer portrait" loading="eager"/></div><div className="portrait-label">THE FACE BEHIND THE DESIGNS <span>✳</span></div><div className="portrait-stamp">✦<br/>VISUAL<br/>STORYTELLER</div></div></section>
  <section className="contents-section" id="contents"><Accents/><div className="eyebrow">02 / WHAT'S INSIDE</div><div className="contents-heading"><span className="handwritten">Table of</span><h2>Contents<span>.</span></h2></div><div className="contents-grid">{specialties.map((s,i)=><a href={['#branding','#branding','#social','#thumbnails','#packaging','#print'][i]} className="content-item" key={s}><span className="content-count">0{i+1}</span><strong>{s.split(' ')[0]}<br/>{s.split(' ').slice(1).join(' ')}</strong><span>↗</span></a>)}</div></section>
