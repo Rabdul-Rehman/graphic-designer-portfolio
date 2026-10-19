@@ -1,0 +1,30 @@
+name: Deploy premium portfolio in one build
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'graphic-designer-portfolio-premium-one-build.zip'
+      - '.github/workflows/deploy-premium-portfolio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Extract verified portfolio package
+        run: |
+          unzip -o graphic-designer-portfolio-premium-one-build.zip -d .
+          rm -f graphic-designer-portfolio-premium-one-build.zip
+      - name: Commit premium portfolio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Launch premium portrait introduction and GSAP animations"
+            git push origin HEAD:main
+          fi
