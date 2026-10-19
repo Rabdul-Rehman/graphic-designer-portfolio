@@ -40,6 +40,31 @@ function App(){
   });
   return()=>{ctx.revert();};
  },[]);
+ useEffect(()=>{
+   // Pointer-responsive recessed 3D motion. Touch and reduced-motion users keep static cards.
+   if(window.matchMedia('(prefers-reduced-motion: reduce), (hover: none), (pointer: coarse)').matches)return;
+   const cards=Array.from(document.querySelectorAll<HTMLElement>('.real-project, .logo-tile, .content-item'));
+   const cleanups=cards.map(card=>{
+     const max=card.classList.contains('real-project')?8:5;
+     const toX=gsap.quickTo(card,'rotationX',{duration:.48,ease:'power3.out'});
+     const toY=gsap.quickTo(card,'rotationY',{duration:.48,ease:'power3.out'});
+     gsap.set(card,{transformPerspective:850,transformOrigin:'50% 50%',transformStyle:'preserve-3d'});
+     const move=(ev:PointerEvent)=>{
+       const r=card.getBoundingClientRect();
+       const x=(ev.clientX-r.left)/r.width-.5;
+       const y=(ev.clientY-r.top)/r.height-.5;
+       // Cursor side recedes inward, rather than bulging outward.
+       toX(y*max*2);
+       toY(-x*max*2);
+     };
+     const leave=()=>{toX(0);toY(0)};
+     card.addEventListener('pointermove',move);
+     card.addEventListener('pointerleave',leave);
+     card.addEventListener('pointercancel',leave);
+     return ()=>{card.removeEventListener('pointermove',move);card.removeEventListener('pointerleave',leave);card.removeEventListener('pointercancel',leave);gsap.killTweensOf(card);gsap.set(card,{clearProps:'rotationX,rotationY,transformPerspective,transformOrigin,transformStyle'})};
+   });
+   return()=>cleanups.forEach(fn=>fn());
+ },[]);
  return <main id="top"><style>{`
 /* Premium hover treatments: children animate independently from GSAP-revealed cards. */
 .real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
@@ -73,7 +98,7 @@ function App(){
  <section className="print-section light-section" id="print"><div className="section-top"><span className="eyebrow">07 / REAL ESTATE ADVERTISING</span><span>RAYA CANAL CAMPAIGN</span></div><div className="real-project-grid featured-three">{projects.slice(8,11).map(project=><a className="real-project" key={project.name} href={project.src} target="_blank" rel="noreferrer"><img src={project.src} alt={project.name} loading="lazy"/><div><strong>{project.name}</strong><span>{project.brand} ↗</span></div></a>)}</div><Accents/></section>
  <HeadingPanel word="FOOD CAMPAIGNS" detail="Appetizing promotional visuals designed for bold, memorable food brands."/>
  <section className="thumbnail-section light-section" id="thumbnails"><div className="section-top"><span className="eyebrow">08 / FOOD ADVERTISING</span><span>DOLPHIN FOODS CAMPAIGN</span></div><div className="real-project-grid featured-three">{projects.slice(5,8).map(project=><a className="real-project" key={project.name} href={project.src} target="_blank" rel="noreferrer"><img src={project.src} alt={project.name} loading="lazy"/><div><strong>{project.name}</strong><span>{project.brand} ↗</span></div></a>)}</div><Accents/></section>
- <section className="final-section heading-panel" id="contact"><div className="panel-grid"/><span className="eyebrow">THE NEXT GREAT PROJECT STARTS HERE</span><h2>LET'S MAKE<br/><em>SOMETHING</em><br/>GREAT.</h2><a href="mailto:hello@yourname.com?subject=Let's%20work%20together">GET IN TOUCH ↗</a><p>THANK YOU FOR EXPLORING MY PORTFOLIO.</p></section>
+ <section className="final-section heading-panel" id="contact"><div className="panel-grid"/><span className="eyebrow">THE NEXT GREAT PROJECT STARTS HERE</span><h2>LET'S MAKE<br/><em>SOMETHING</em><br/>GREAT.</h2><a href="https://wa.me/923258757668?text=Hi%20Abubakar%2C%20I%27d%20like%20to%20discuss%20a%20design%20project." target="_blank" rel="noopener noreferrer">GET IN TOUCH ↗</a><p>THANK YOU FOR EXPLORING MY PORTFOLIO.</p></section>
  <footer><span>© {new Date().getFullYear()} DESIGNFOLIO</span><a href="#top">BACK TO TOP ↑</a><span>MADE WITH PURPOSE.</span></footer>
  </main>
 }
