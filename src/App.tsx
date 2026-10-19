@@ -56,7 +56,7 @@ function App(){
  useEffect(()=>{
    if(window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches)return;
    const cover=document.querySelector<HTMLElement>('.cover');
-   const title=document.querySelector<HTMLElement>('.cover-title-word');
+   const title=document.querySelector<HTMLElement>('.cover-wordmark');
    const button=document.querySelector<HTMLElement>('.cover .scroll-cta');
    const orbitA=document.querySelector<HTMLElement>('.cover-orbit-a');
    const orbitB=document.querySelector<HTMLElement>('.cover-orbit-b');
@@ -203,6 +203,15 @@ function App(){
 @media(max-width:950px){.cover .cover-wordmark{padding-bottom:clamp(70px,10vw,120px);margin-top:28px}.cover .cover-title-word{font-size:clamp(48px,10.2vw,100px)!important}.cover .cover-p-swirl path{stroke-width:9}}
 @media(max-width:600px){.cover .cover-wordmark{padding-bottom:67px;margin:22px auto 0}.cover .cover-title-word{font-size:clamp(35px,9.9vw,61px)!important;letter-spacing:-.075em!important}.cover .cover-swash-line{height:75px}.cover .cover-p-swirl{top:17%}.cover .cover-lead{margin:0 0 22px!important}}
 @media(prefers-reduced-motion:reduce){.cover .cover-swash-line path{animation:none;stroke-dashoffset:0}}
+
+
+/* Keep oversized lettering, hand-drawn flourishes and CTA together in one viewport. */
+.cover .cover-content{padding-top:clamp(36px,5vh,62px)!important;padding-bottom:clamp(30px,4vh,52px)!important}
+.cover .cover-wordmark{margin:clamp(17px,3vh,27px) auto 0!important;padding-bottom:clamp(58px,7.5vw,93px)!important}
+.cover .cover-title-word{font-size:clamp(57px,9.65vw,142px)!important}
+.cover .cover-swash-line{height:clamp(60px,8vw,110px)}
+.cover .cover-lead{margin:0 0 18px!important}
+@media(max-width:650px){.cover .cover-content{padding-top:60px!important;padding-bottom:40px!important}.cover .cover-wordmark{margin:15px auto 0!important;padding-bottom:55px!important}.cover .cover-title-word{font-size:clamp(37px,9.9vw,66px)!important}.cover .cover-swash-line{height:60px}}
 
 /* Premium hover treatments: children animate independently from GSAP-revealed cards. */
 .real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
