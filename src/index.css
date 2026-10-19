@@ -11,10 +11,10 @@
 @media(max-width:650px){.intro-section{display:flex;flex-direction:column;min-height:auto;padding:75px 6% 50px}.hello-copy{width:100%;padding:0 0 28px}.hello-copy h2{font-size:clamp(84px,20vw,130px)}.hello-copy p{max-width:100%}.intro-caption{margin-top:30px}.portrait-stage{width:100%;min-height:460px}.portrait-arch{min-height:420px;height:500px;width:90%}.portrait-behind-text{top:10%;left:0;font-size:76px}.portrait-label{right:0;bottom:6%;font-size:8px;padding:12px}.portrait-stamp{right:0;top:12%}}
 @media(prefers-reduced-motion:reduce){.portrait-arch{clip-path:none!important}.portrait-img{transform:none!important}.intro-section *{scroll-behavior:auto}}
 
-/* Circular portrait positioning correction */
-.intro-section .portrait-stage{align-items:center;justify-content:center}
-.intro-section .portrait-arch{width:min(100%,560px);height:auto;min-height:0;max-height:none;aspect-ratio:1 / 1;border-radius:50%;display:block}
-.intro-section .portrait-img{position:absolute;left:50%;bottom:-14%;width:112%;height:auto;max-width:none;object-fit:contain;object-position:center;transform:translateX(-50%) translateY(0);transform-origin:center bottom}
+/* Balanced circular portrait: preserve the full face and enough shoulder space. */
+.intro-section .portrait-stage{align-items:center;justify-content:center;overflow:visible}
+.intro-section .portrait-arch{width:min(100%,540px);height:auto;min-height:0;max-height:none;aspect-ratio:1 / 1;border-radius:50%;display:block;clip-path:none}
+.intro-section .portrait-img{position:absolute;left:50%;bottom:-30%;width:88%;height:auto;max-width:none;object-fit:contain;object-position:center;transform:translateX(-50%);transform-origin:center bottom}
 .intro-section .portrait-halo{top:8%;left:8%}
-@media(max-width:900px){.intro-section .portrait-arch{width:min(100%,470px)}}
-@media(max-width:650px){.intro-section .portrait-arch{width:min(90vw,380px)}}
+@media(max-width:900px){.intro-section .portrait-arch{width:min(100%,460px)}.intro-section .portrait-img{bottom:-30%;width:90%}}
+@media(max-width:650px){.intro-section .portrait-arch{width:min(90vw,370px)}.intro-section .portrait-img{bottom:-30%;width:90%}}
