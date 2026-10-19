@@ -19,7 +19,16 @@ function App(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   gsap.registerPlugin(ScrollTrigger);
   const ctx=gsap.context(()=>{
-    gsap.fromTo('.cover-content > *',{y:55,autoAlpha:0},{y:0,autoAlpha:1,duration:1.15,stagger:.13,ease:'power3.out',delay:.12});
+    const hero=gsap.timeline({defaults:{ease:'power3.out'}});
+    hero.fromTo('.cover .overline, .cover .cover-small',{y:34,autoAlpha:0,filter:'blur(10px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:.85,stagger:.12},.12)
+      .fromTo('.cover-title-word',{y:115,autoAlpha:0,rotateX:18,filter:'blur(8px)'},{y:0,autoAlpha:1,rotateX:0,filter:'blur(0px)',duration:1.35,ease:'expo.out'},.35)
+      .fromTo('.cover .cover-swash',{scale:.3,rotation:-100,autoAlpha:0},{scale:1,rotation:-7,autoAlpha:1,duration:1.2,ease:'back.out(1.6)'},.95)
+      .fromTo('.cover .cover-lead, .cover .scroll-cta',{y:25,autoAlpha:0},{y:0,autoAlpha:1,duration:.85,stagger:.14},.9)
+      .fromTo('.cover-bottom > *',{y:14,autoAlpha:0},{y:0,autoAlpha:1,duration:.7,stagger:.15},1.1);
+    gsap.to('.cover-orbit-a',{rotation:360,duration:80,repeat:-1,ease:'none'});
+    gsap.to('.cover-orbit-b',{rotation:-360,duration:110,repeat:-1,ease:'none'});
+    gsap.to('.cover-star',{y:-14,rotation:24,duration:3.5,repeat:-1,yoyo:true,stagger:.5,ease:'sine.inOut'});
+    gsap.to('.cover-content',{y:-65,opacity:.55,ease:'none',scrollTrigger:{trigger:'.cover',start:'top top',end:'bottom top',scrub:true}});
     gsap.fromTo('.hello-copy > *',{y:62,autoAlpha:0},{y:0,autoAlpha:1,duration:1,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.intro-section',start:'top 70%',once:true}});
     gsap.fromTo('.portrait-arch',{autoAlpha:0,y:42,scale:.95},{autoAlpha:1,y:0,scale:1,duration:1.25,ease:'power3.out',scrollTrigger:{trigger:'.intro-section',start:'top 66%',once:true}});
     gsap.fromTo('.portrait-img',{autoAlpha:0},{autoAlpha:1,duration:1.1,ease:'power2.out',scrollTrigger:{trigger:'.intro-section',start:'top 65%',once:true}});
@@ -39,6 +48,27 @@ function App(){
     
   });
   return()=>{ctx.revert();};
+ },[]);
+ useEffect(()=>{
+   if(window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches)return;
+   const cover=document.querySelector<HTMLElement>('.cover');
+   const title=document.querySelector<HTMLElement>('.cover-title-word');
+   const button=document.querySelector<HTMLElement>('.cover .scroll-cta');
+   if(!cover)return;
+   const track=(ev:PointerEvent)=>{
+     const r=cover.getBoundingClientRect();
+     const x=(ev.clientX-r.left)/r.width, y=(ev.clientY-r.top)/r.height;
+     cover.style.setProperty('--spot-x',(x*100).toFixed(1)+'%');
+     cover.style.setProperty('--spot-y',(y*100).toFixed(1)+'%');
+     if(title)gsap.to(title,{x:(x-.5)*20,y:(y-.5)*11,duration:.9,ease:'power3.out',overwrite:'auto'});
+   };
+   const reset=()=>{if(title)gsap.to(title,{x:0,y:0,duration:.8,ease:'power3.out'});if(button)gsap.to(button,{x:0,y:0,duration:.45,ease:'power3.out'})};
+   const buttonMove=(ev:PointerEvent)=>{if(!button)return;const r=button.getBoundingClientRect();gsap.to(button,{x:(ev.clientX-r.left-r.width/2)*.13,y:(ev.clientY-r.top-r.height/2)*.18,duration:.45,ease:'power3.out',overwrite:'auto'})};
+   cover.addEventListener('pointermove',track);
+   cover.addEventListener('pointerleave',reset);
+   button?.addEventListener('pointermove',buttonMove);
+   button?.addEventListener('pointerleave',reset);
+   return()=>{cover.removeEventListener('pointermove',track);cover.removeEventListener('pointerleave',reset);button?.removeEventListener('pointermove',buttonMove);button?.removeEventListener('pointerleave',reset);if(title)gsap.killTweensOf(title);if(button)gsap.killTweensOf(button)};
  },[]);
  useEffect(()=>{
    // Pointer-responsive recessed 3D motion. Touch and reduced-motion users keep static cards.
@@ -73,6 +103,34 @@ function App(){
 .intro-section .designer-signature:after{content:'';position:absolute;left:0;right:0;bottom:2px;height:5px;background:#9ad742;border-radius:60% 20% 50% 15%;transform:rotate(-1.5deg);transform-origin:left center}
 @media(max-width:650px){.intro-section .hello-copy h2{font-size:clamp(78px,19vw,116px)}}
 
+
+/* Cinematic cover — deliberately scoped to the opening section. */
+.cover{--spot-x:50%;--spot-y:45%;isolation:isolate;background:radial-gradient(ellipse at 50% 40%,#a52b26 0%,#751b1b 48%,#3f0d11 100%);min-height:100svh}
+.cover::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 52% 58% at var(--spot-x) var(--spot-y),#ff795321,transparent 80%);mix-blend-mode:screen}
+.cover-noise{pointer-events:none;position:absolute;inset:0;z-index:0;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.34'/%3E%3C/svg%3E")}
+.cover-glow{position:absolute;inset:10% 20%;border-radius:50%;filter:blur(85px);opacity:.17;background:#fc7852;z-index:0;pointer-events:none}
+.cover-orbit{position:absolute;left:50%;top:49%;border:1px solid #fff1e21a;pointer-events:none;border-radius:50%;transform-origin:center;z-index:0}
+.cover-orbit-a{width:min(96vw,1100px);height:min(96vw,1100px);margin-left:calc(-1 * min(96vw,1100px)/2);margin-top:calc(-1 * min(96vw,1100px)/2);border-style:dashed}
+.cover-orbit-b{width:min(70vw,800px);height:min(70vw,800px);margin-left:calc(-1 * min(70vw,800px)/2);margin-top:calc(-1 * min(70vw,800px)/2)}
+.cover-star{position:absolute;color:#f7d4aa;opacity:.65;pointer-events:none;z-index:1}
+.cover-star-a{left:8%;top:28%;font-size:clamp(20px,3vw,42px)}.cover-star-b{right:9%;bottom:25%;font-size:clamp(25px,4vw,55px)}
+.cover .cover-content{z-index:2;max-width:1500px;will-change:transform;perspective:1200px}
+.cover .cover-small{display:flex;justify-content:center;align-items:center;gap:22px}
+.cover .hero-line{display:inline-block;width:clamp(30px,6vw,85px);height:2px;background:#a4e74b}
+.cover .cover-title-word{display:inline-block;white-space:nowrap;font-size:clamp(49px,12vw,175px);line-height:1.25;letter-spacing:-.065em;text-shadow:4px 6px 0 #420a0d,0 18px 55px #28030b6b}
+.cover .cover-swash{margin:8px auto 0;text-shadow:0 12px 22px #28030b55}
+.cover .cover-lead{margin:45px 0 28px}
+.cover .scroll-cta{position:relative;overflow:hidden;border:1px solid #ffe3c7a6;background:#fff1e70a;backdrop-filter:blur(8px);transition:box-shadow .4s,background .4s,color .4s}
+.cover .scroll-cta:before{content:'';position:absolute;inset:0;background:#d0f18e;transform:translateY(103%);transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:-1}
+.cover .scroll-cta:hover:before{transform:translateY(0)}
+.cover .scroll-cta:hover{background:transparent;color:#25110d;box-shadow:0 16px 40px #1b050748}
+.cover-scroll-indicator{position:absolute;bottom:31px;left:50%;transform:translateX(-50%);width:23px;height:39px;border:1px solid #ffecd288;border-radius:17px;display:grid;place-items:start center;padding-top:8px;z-index:3}
+.cover-scroll-indicator span{width:3px;height:9px;background:#b5ec70;border-radius:3px;animation:cover-wheel 1.8s ease-in-out infinite}
+@keyframes cover-wheel{0%{transform:translateY(0);opacity:1}80%{transform:translateY(14px);opacity:.1}100%{transform:translateY(0);opacity:0}}
+.cover .cover-bottom{z-index:3}
+@media(max-width:700px){.cover .cover-content{padding:100px 3%}.cover .cover-title-word{font-size:clamp(44px,11.4vw,90px)}.cover .cover-small{gap:7px;letter-spacing:.2em}.cover .hero-line{width:24px}.cover .cover-lead{margin-top:43px}.cover-scroll-indicator{bottom:55px}.cover .cover-bottom{bottom:15px}.cover-star{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.cover-scroll-indicator span{animation:none}.cover .cover-content,.cover .cover-title-word{will-change:auto}}
+
 /* Premium hover treatments: children animate independently from GSAP-revealed cards. */
 .real-project{position:relative;isolation:isolate;border-radius:10px;transition:box-shadow .45s cubic-bezier(.2,.7,.2,1),background .35s!important;overflow:hidden}
 .real-project:hover{box-shadow:0 24px 58px #18231732!important;background:#f0f5e8}
@@ -92,7 +150,7 @@ function App(){
 @media (hover:none){.real-project img{will-change:auto}}
 @media(prefers-reduced-motion:reduce){.real-project img,.logo-tile img,.real-project,.logo-tile,.content-item:before{transition:none!important;transform:none!important}}
 `}</style><div className="progress" style={{transform:`scaleX(${progress})`}}/><nav className="navigation"><a href="#top" className="mini-brand">DESIGN<span>FOLIO</span></a><div><a href="#contents">Explore</a><a href="#branding">Branding</a><a href="#social">Social media</a><a href="#contact">Contact ↗</a></div></nav>
- <section className="cover heading-panel"><div className="panel-grid"/><div className="cover-content"><span className="overline">THE SELECTED WORK OF A GRAPHIC DESIGNER</span><span className="cover-small">GRAPHIC DESIGN</span><h1>PORTFOLIO<span className="swash cover-swash">❧</span></h1><p>Ideas brought to life through bold visuals and thoughtful design.</p><a href="#hello" className="scroll-cta">EXPLORE THE PORTFOLIO <span>↓</span></a></div><div className="cover-bottom"><span>VISUAL IDENTITY · DIGITAL · PRINT</span><span>EST. 2026</span></div></section>
+ <section className="cover heading-panel"><div className="panel-grid"/><div className="cover-noise" aria-hidden="true"/><div className="cover-glow" aria-hidden="true"/><div className="cover-orbit cover-orbit-a" aria-hidden="true"/><div className="cover-orbit cover-orbit-b" aria-hidden="true"/><span className="cover-star cover-star-a" aria-hidden="true">✳</span><span className="cover-star cover-star-b" aria-hidden="true">✦</span><div className="cover-content"><span className="overline">THE SELECTED WORK OF A GRAPHIC DESIGNER</span><span className="cover-small">GRAPHIC DESIGN <span className="hero-line"/></span><h1><span className="cover-title-word">PORTFOLIO</span><span className="swash cover-swash">❧</span></h1><p className="cover-lead">Ideas brought to life through bold visuals and thoughtful design.</p><a href="#hello" className="scroll-cta">EXPLORE THE PORTFOLIO <span>↓</span></a></div><div className="cover-bottom"><span>VISUAL IDENTITY · DIGITAL · PRINT</span><span>EST. 2026</span></div><a className="cover-scroll-indicator" href="#hello" aria-label="Scroll to introduction"><span/></a></section>
  <section className="intro-section" id="hello"><Accents/><div className="hello-copy"><span className="eyebrow">01 / THE DESIGNER BEHIND THE WORK</span><h2>HELLO<span>!</span></h2><div className="designer-signature">I am <strong>ABUBAKAR'S</strong></div><div className="scribble">Great to have you here.</div><p className="intro-name">I'm a graphic designer who turns ideas into memorable visual stories.</p><p>From distinctive logos to dynamic social media campaigns, I create purposeful identities and visuals that help brands connect with people.</p><a href="#branding" className="intro-link">DISCOVER MY WORK <span>↗</span></a><div className="intro-caption">CREATIVE THINKING · DESIGN WITH PURPOSE · 2026</div></div><div className="portrait-stage"><span className="portrait-behind-text" aria-hidden="true">CREATE<br/>INSPIRE</span><div className="portrait-orbit" aria-hidden="true"></div><div className="portrait-arch"><div className="portrait-halo"></div><img className="portrait-img" src="/images/designer-portrait.webp" alt="Graphic designer portrait" loading="eager"/></div><div className="portrait-label">THE FACE BEHIND THE DESIGNS <span>✳</span></div><div className="portrait-stamp">✦<br/>VISUAL<br/>STORYTELLER</div></div></section>
  <section className="contents-section" id="contents"><Accents/><div className="eyebrow">02 / WHAT'S INSIDE</div><div className="contents-heading"><span className="handwritten">Table of</span><h2>Contents<span>.</span></h2></div><div className="contents-grid">{specialties.map((s,i)=><a href={['#branding','#branding','#social','#thumbnails','#packaging','#print'][i]} className="content-item" key={s}><span className="content-count">0{i+1}</span><strong>{s.split(' ')[0]}<br/>{s.split(' ').slice(1).join(' ')}</strong><span>↗</span></a>)}</div></section>
  <section className="logo-showcase light-section" id="branding"><div className="section-top"><span className="eyebrow">03 / IDENTITY DESIGN</span><span>SELECTED BRAND MARKS</span></div><div className="logo-grid">{logos.map((logo)=><div className="logo-tile genuine-logo" key={logo.name}><img src={logo.src} alt={logo.name+ ' logo design'} loading="lazy"/><small>{logo.name}</small></div>)}</div><Accents/></section>
