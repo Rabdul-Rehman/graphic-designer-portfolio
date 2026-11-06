@@ -247,7 +247,7 @@ function animate(){if(!window.gsap||!window.ScrollTrigger||matchMedia('(prefers-
  // Magnetic accents on mouse pointers; disabled for touch and reduced motion.
  if(matchMedia('(hover:hover) and (pointer:fine)').matches){document.querySelectorAll('.magnetic').forEach(btn=>{const x=gsap.quickTo(btn,'x',{duration:.35,ease:'power3.out'}),y=gsap.quickTo(btn,'y',{duration:.35,ease:'power3.out'});btn.addEventListener('pointermove',e=>{const r=btn.getBoundingClientRect();x((e.clientX-r.left-r.width/2)*.12);y((e.clientY-r.top-r.height/2)*.14)});btn.addEventListener('pointerleave',()=>{x(0);y(0)})});}
 }
-window.addEventListener('load',animate,{once:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',animate,{once:true});else requestAnimationFrame(animate);
 })();
 </script>
 <script>
@@ -348,7 +348,7 @@ window.addEventListener('load',animate,{once:true});
   }),{threshold:.06,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.reveal,.cat-card,.value,.story-quote').forEach(el=>io.observe(el));
  };
- if(document.readyState==='complete')onReady();else window.addEventListener('load',onReady,{once:true});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady,{once:true});else requestAnimationFrame(onReady);
  // Always expose a small status flag for real-browser QA.
  window.__LADYLUXES_MOTION__={cursor:!!fine,tilt:!!fine,gsap:()=>!!window.gsap,mode:()=>root.dataset.motion||'loading'};
 })();
