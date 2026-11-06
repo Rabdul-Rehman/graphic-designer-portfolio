@@ -163,7 +163,7 @@ const products=[
 const $=id=>document.getElementById(id),fmt=n=>'Rs. '+n.toLocaleString('en-PK');
 let filter='All',expanded=false,selected=null,chosenSize='34',cart=[];const wishes=new Set();let toastTimer;
 function toast(s){const t=$('toast');t.textContent=s;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2300)}
-function card(p){return `<article class="product"><div class="product-image"><img src="${photo(p).replace(/&/g,'&amp;')}" alt="${p.title}" loading="lazy"><span class="product-badge">Favourite</span><button class="wishlist ${wishes.has(p.id)?'saved':''}" data-wish="${p.id}" aria-label="Save ${p.title}" title="Save favourite">${wishes.has(p.id)?'♥':'♡'}</button><button class="quick" data-view="${p.id}">Quick view ↗</button></div><div class="product-data"><h3 class="product-title">${p.title}</h3><span class="price">${fmt(p.price)} <del>${fmt(p.old)}</del></span></div></article>`}
+function card(p){return `<article class="product"><div class="product-image"><img src="${photo(p).replace(/&/g,'&amp;')}" alt="${p.title}" loading="eager"><span class="product-badge">Favourite</span><button class="wishlist ${wishes.has(p.id)?'saved':''}" data-wish="${p.id}" aria-label="Save ${p.title}" title="Save favourite">${wishes.has(p.id)?'♥':'♡'}</button><button class="quick" data-view="${p.id}">Quick view ↗</button></div><div class="product-data"><h3 class="product-title">${p.title}</h3><span class="price">${fmt(p.price)} <del>${fmt(p.old)}</del></span></div></article>`}
 function animateProducts(){if(!window.gsap||matchMedia('(prefers-reduced-motion: reduce)').matches)return;gsap.fromTo('#productGrid .product',{autoAlpha:0,y:28},{autoAlpha:1,y:0,duration:.7,stagger:.075,ease:'power2.out',clearProps:'all'});}
 function renderProducts(animate=false){const arr=products.filter(p=>filter==='All'||p.category===filter),shown=expanded?arr:arr.slice(0,4);$('productGrid').innerHTML=shown.length?shown.map(card).join(''):'<p>No pieces in this collection yet.</p>';$('moreButton').style.display=arr.length>4?'inline-flex':'none';$('moreButton').innerHTML=expanded?'Show fewer pieces <span class="arr">↑</span>':'See more pieces <span class="arr">→</span>';if(animate)animateProducts()}
 function setFilter(f){filter=f;expanded=false;document.querySelectorAll('[data-filter]').forEach(b=>{const a=b.dataset.filter===f;b.classList.toggle('active',a);b.setAttribute('aria-pressed',a)});renderProducts(true)}
@@ -207,6 +207,24 @@ function animate(){if(!window.gsap||!window.ScrollTrigger||matchMedia('(prefers-
 }
 window.addEventListener('load',animate,{once:true});
 })();
+</script>
+<script>
+/* Progressive fallback for HTML preview wrappers where external GSAP is restricted */
+(()=>{function init(){
+ if(window.gsap && window.ScrollTrigger)return;
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const animate=(el,dx=0,dy=25,delay=0)=>{try{el.animate([{opacity:0,transform:`translate(${dx}px,${dy}px)`},{opacity:1,transform:'translate(0px,0px)'}],{duration:850,delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'})}catch(e){}};
+ document.querySelectorAll('.hero-in').forEach((el,i)=>animate(el,0,30,i*130));
+ const hero=document.querySelector('.hero-visual');if(hero)animate(hero,30,0,140);
+ const nodes=[...document.querySelectorAll('.reveal,.cat-card,.value')];
+ if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target;animate(el,0,26,Number(el.dataset.delay||0));io.unobserve(el)})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+  nodes.forEach((el,i)=>{el.dataset.delay=el.classList.contains('cat-card')?(i%4)*80:0;io.observe(el)})
+ }else nodes.forEach(el=>animate(el));
+ let t=false;const img=document.querySelector('.hero-image');
+ if(img){window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{const y=Math.max(0,Math.min(55,window.scrollY*.09));img.style.transform=`scale(1.04) translateY(${y*.35}px)`;t=false})},{passive:true})}
+ if(matchMedia('(hover:hover) and (pointer:fine)').matches){document.querySelectorAll('.magnetic').forEach(btn=>{btn.addEventListener('pointermove',e=>{let r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.10}px,${(e.clientY-r.top-r.height/2)*.1}px)`});btn.addEventListener('pointerleave',()=>btn.style.transform='')})}
+}if(document.readyState==='complete')init();else window.addEventListener('load',init,{once:true})})();
 </script>
 </body>
 </html>
