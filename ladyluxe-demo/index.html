@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fbf7f3">
+<title>LadyLuxe — Elevated Essentials | Design Preview</title>
+<meta name="description" content="LadyLuxe concept homepage. Discover thoughtfully curated lingerie, bralettes and comfort essentials.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--wine:#682b3d;--wine2:#8d4558;--ink:#2d2528;--muted:#777071;--cream:#fbf7f3;--ivory:#fffdf9;--blush:#f5e7e7;--rose:#e6c2c0;--border:#e9dfdb;--shadow:0 22px 75px rgba(55,27,30,.10)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+button,input{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:#e7c0c8;color:#481d2b}
+.container{width:min(1360px,calc(100% - 112px));margin:auto}
+.serif{font-family:'Playfair Display',serif}
+.eyebrow{text-transform:uppercase;letter-spacing:.23em;font-size:11px;font-weight:800;color:var(--wine2)}
+.pill{display:inline-flex;align-items:center;gap:10px;border:1px solid #dcbfc4;border-radius:50px;padding:11px 16px;color:var(--wine);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.pill i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--wine2)}
+.announcement{height:34px;background:var(--wine);color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.announcement span{margin:0 15px;color:#e5bdc4}
+.header{background:rgba(255,253,249,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;transition:box-shadow .3s}
+.header.scrolled{box-shadow:0 9px 30px rgba(49,23,25,.07)}
+.nav{height:88px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:12px;font-weight:700;color:#51474a;position:relative;white-space:nowrap}
+.nav-links a:after{content:"";position:absolute;left:0;bottom:-9px;height:1px;width:0;background:var(--wine);transition:width .3s}
+.nav-links a:hover:after{width:100%}
+.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:1;text-align:center}
+.brand-main{font-family:'Playfair Display',serif;letter-spacing:.08em;font-size:29px;font-weight:500}
+.brand-main span{color:var(--wine2)}
+.brand-sub{font-size:8px;letter-spacing:.38em;text-transform:uppercase;font-weight:700;color:var(--wine);margin-top:9px}
+.nav-actions{display:flex;justify-content:flex-end;align-items:center;gap:10px}
+.icon-btn{width:42px;height:42px;display:grid;place-items:center;background:transparent;border:0;color:var(--ink);border-radius:50%;transition:background .3s}
+.icon-btn:hover{background:#f4e9e7}
+.icon-btn svg{width:19px;height:19px;stroke-width:1.7}
+.bag-btn{position:relative}
+.bag-count{position:absolute;right:0;top:1px;width:17px;height:17px;border-radius:50%;background:var(--wine);color:white;display:grid;place-items:center;font-size:10px}
+.hamburger{display:none}
+.demo-note{background:#f6e8e6;text-align:center;color:var(--wine);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px}
+.hero{position:relative;min-height:650px;display:grid;grid-template-columns:49% 51%;overflow:hidden;background:#efe5de}
+.hero-left{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:80px 0 100px max(calc((100vw - 1360px)/2),56px);z-index:2}
+.hero-left:before{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(114,69,76,.14);border-radius:50%;left:-310px;bottom:-320px;pointer-events:none}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(60px,5.65vw,97px);line-height:1.06;letter-spacing:-.055em;font-weight:400;margin:26px 0 24px;max-width:700px}
+.hero h1 em{font-weight:400;color:var(--wine);white-space:nowrap}
+.hero-desc{max-width:420px;font-size:15px;line-height:1.85;color:#665a5b;margin:0 0 30px}
+.hero-btns{display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+.btn{border:1px solid transparent;padding:16px 26px;min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:15px;background:var(--wine);color:#fff;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;transition:all .25s}
+.btn:hover{background:var(--wine2);transform:translateY(-2px)}
+.btn-light{background:transparent;border-color:#b7a3a4;color:var(--wine)}
+.btn-light:hover{background:var(--wine);border-color:var(--wine);color:white}
+.hero-trust{display:flex;align-items:center;gap:11px;color:#796b6d;font-size:12px;margin-top:37px}
+.hero-trust svg{width:17px;height:17px;stroke:var(--wine)}
+.hero-visual{height:100%;min-height:650px;position:relative;overflow:hidden;background:#d6bbb1}
+.hero-visual img{width:100%;height:100%;object-fit:cover;object-position:87% center;position:absolute;inset:0;filter:saturate(.86) contrast(1.03);transform:scale(1.03)}
+.hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(239,229,222,.30) 0,transparent 22%)}
+.hero-stamp{position:absolute;z-index:3;right:5%;bottom:7%;width:154px;height:154px;border-radius:50%;background:#fffaf2ec;border:1px solid white;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;transform:rotate(8deg);color:var(--wine)}
+.hero-stamp svg{width:25px;margin-bottom:9px}
+.hero-stamp b{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;line-height:1.2}
+.hero-stamp small{letter-spacing:.2em;font-size:8px;text-transform:uppercase;margin-top:7px;font-weight:800}
+.scroll-cue{position:absolute;bottom:33px;left:max(calc((100vw - 1360px)/2),56px);display:flex;align-items:center;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:800;color:var(--wine2)}
+.scroll-cue:before{content:"";width:35px;height:1px;background:var(--wine2)}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border);background:var(--ivory)}
+.perk{display:flex;justify-content:center;align-items:center;gap:15px;padding:24px 14px;border-right:1px solid var(--border)}
+.perk:last-child{border:0}
+.perk svg{width:24px;height:24px;stroke:var(--wine);stroke-width:1.25}
+.perk b{display:block;font-size:12px;letter-spacing:.015em}
+.perk small{display:block;font-size:11px;color:#92858a;margin-top:5px}
+.section{padding:108px 0}
+.section-header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:34px}
+.section-header h2,.split-copy h2,.story-content h2,.faq-copy h2{font-family:'Playfair Display',serif;font-size:clamp(37px,3.7vw,55px);line-height:1.1;letter-spacing:-.04em;font-weight:400;margin:13px 0 0}
+.section-header p{color:var(--muted);font-size:13px;line-height:1.8;margin:10px 0 0}
+.view-link{font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;display:inline-flex;align-items:center;gap:15px;color:var(--wine);white-space:nowrap;border-bottom:1px solid #a77986;padding-bottom:10px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.category{height:370px;position:relative;overflow:hidden;background:#e3d1cd;cursor:pointer}
+.category img{width:100%;height:100%;object-fit:cover;transition:transform .7s;filter:saturate(.86)}
+.category:hover img{transform:scale(1.08)}
+.category:after{content:"";position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(36,19,25,.65))}
+.cat-content{position:absolute;z-index:2;left:23px;right:20px;bottom:24px;color:white;display:flex;align-items:flex-end;justify-content:space-between}
+.cat-content small{font-size:10px;text-transform:uppercase;letter-spacing:.18em;opacity:.85}
+.cat-content h3{font-family:'Playfair Display',serif;font-size:25px;font-weight:400;margin:6px 0 0}
+.circle-arrow{width:38px;height:38px;border:1px solid #ffffff8a;border-radius:50%;display:grid;place-items:center;font-size:18px;flex-shrink:0;transition:background .3s}
+.category:hover .circle-arrow{background:white;color:var(--wine)}
+.products-section{background:#fffcf9}
+.tabs{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:30px 0}
+.tab{border:1px solid #e3d8d4;background:transparent;color:#61565a;padding:10px 18px;font-size:11px;font-weight:700;border-radius:50px}
+.tab.active,.tab:hover{background:var(--wine);color:white;border-color:var(--wine)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product{min-width:0}
+.product-photo{position:relative;aspect-ratio:.83;background:#efe5e0;overflow:hidden}
+.product-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 21%;transition:transform .7s;filter:saturate(.90)}
+.product:hover .product-photo img{transform:scale(1.06)}
+.sale{position:absolute;left:14px;top:15px;z-index:2;background:var(--ivory);color:var(--wine);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:8px 11px;font-weight:800}
+.heart{position:absolute;z-index:2;top:11px;right:10px;border:0;width:35px;height:35px;border-radius:50%;background:#fffdf8e6;font-size:20px;color:var(--wine)}
+.heart.selected{color:#ca4169}
+.quick{position:absolute;z-index:2;bottom:12px;left:12px;right:12px;border:0;background:#fffdf9ed;color:var(--wine);text-transform:uppercase;font-size:10px;letter-spacing:.14em;font-weight:800;padding:14px;transform:translateY(130%);transition:transform .35s}
+.product:hover .quick,.quick:focus-visible{transform:translateY(0)}
+.product-meta{padding:18px 2px 0}
+.rating{font-size:12px;color:#b38c61;letter-spacing:.18em}
+.rating span{letter-spacing:0;color:#978a8b;font-size:10px;margin-left:6px}
+.product-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;line-height:1.55;margin:8px 0 10px;min-height:41px}
+.price{display:flex;align-items:center;gap:10px;color:var(--wine);font-size:14px;font-weight:800}
+.price del{color:#a99b9b;font-size:12px;font-weight:400}
+.load-more{text-align:center;margin-top:44px}
+.load-more .btn{min-width:210px}
+.story{display:grid;grid-template-columns:1fr 1fr;min-height:590px;overflow:hidden;background:#ead8d4}
+.story-photo{position:relative;overflow:hidden;min-height:550px;background:#bc9596}
+.story-photo img{width:100%;height:100%;object-fit:cover;object-position:center 39%;position:absolute;inset:0}
+.story-content{padding:75px 13%;display:flex;justify-content:center;align-items:flex-start;flex-direction:column;background:radial-gradient(circle at 100% 0%,#f5e7e5,transparent 55%),#e8d5d2}
+.story-content h2{font-size:clamp(44px,4vw,65px);line-height:1.1}
+.story-content h2 em{color:var(--wine)}
+.story-content p{color:#776365;line-height:1.9;font-size:14px;max-width:390px;margin:21px 0 30px}
+.mini-divider{width:42px;height:1px;background:var(--wine);margin:17px 0}
+.promise{padding:65px 0;background:#6b3444;color:white}
+.promise-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:25px;text-align:center}
+.promise-item{padding:0 35px}
+.promise-item:not(:last-child){border-right:1px solid #ffffff30}
+.promise-item svg{width:27px;height:27px;stroke:#f2ccd1;stroke-width:1.25}
+.promise-item h3{font-family:'Playfair Display',serif;font-weight:400;font-size:24px;margin:13px 0 8px}
+.promise-item p{font-size:12px;line-height:1.8;color:#efdce0;margin:0}
+.faq-layout{display:grid;grid-template-columns:1fr 1.25fr;gap:100px}
+.faq-copy p{font-size:14px;color:#82777a;line-height:1.9;max-width:320px}
+.faq-list{border-top:1px solid #e0d4d1}
+.faq-item{border-bottom:1px solid #e0d4d1}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;border:0;background:none;padding:22px 0;color:var(--ink);font-size:14px;font-weight:700;gap:18px}
+.faq-q span:last-child{color:var(--wine);font-size:21px;font-weight:400}
+.faq-a{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.faq-a p{font-size:13px;color:#817477;line-height:1.8;padding:0 25px 20px 0;margin:0}
+.faq-item.open .faq-a{max-height:220px}
+.newsletter{background:#e9d7d5;padding:56px 0}
+.newsletter-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.newsletter h2{font-family:'Playfair Display',serif;font-size:40px;font-weight:400;margin:9px 0 10px;letter-spacing:-.04em}
+.newsletter p{font-size:13px;color:#79676a;margin:0}
+.newsletter-form{display:flex;min-width:365px;border-bottom:1px solid var(--wine)}
+.newsletter-form input{border:0;background:none;outline:0;flex:1;padding:15px 10px 15px 0;font-size:13px;color:var(--wine);min-width:0}
+.newsletter-form input::placeholder{color:#9c7d83}
+.newsletter-form button{border:0;background:none;color:var(--wine);padding:12px;font-size:20px}
+.footer{background:#331f27;color:#f0e8e7;padding:75px 0 28px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:60px;padding-bottom:75px}
+.footer .brand{align-items:flex-start;color:white}
+.footer .brand-main{font-size:30px}
+.footer .brand-sub{color:#e5b6c4}
+.footer-about{max-width:275px;font-size:12px;line-height:2;color:#cabdc0;margin:24px 0}
+.footer h4{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:5px 0 25px}
+.footer-links{display:flex;flex-direction:column;gap:14px}
+.footer-links a{font-size:12px;color:#ccbec0;line-height:1.4}
+.footer-links a:hover{color:white}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #ffffff2a;padding-top:25px;font-size:10px;color:#ae969d;letter-spacing:.04em}
+.footer-bottom b{font-weight:500;color:#e2c1c8}
+.overlay{position:fixed;inset:0;z-index:98;background:#1c1119a3;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;right:0;top:0;bottom:0;z-index:99;width:min(460px,100%);background:#fffdf9;box-shadow:-15px 0 70px #0002;transform:translateX(105%);transition:transform .35s;display:flex;flex-direction:column}
+.drawer.show{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid var(--border)}
+.drawer-head h3{margin:0;font:400 31px 'Playfair Display',serif}
+.drawer-main{flex:1;overflow-y:auto;padding:25px 28px}
+.drawer-foot{padding:24px 28px;border-top:1px solid var(--border)}
+.cart-item{display:flex;align-items:center;gap:15px;margin-bottom:22px}
+.cart-item img{width:82px;height:94px;object-fit:cover;background:#eee}
+.cart-item strong{font-size:12px;line-height:1.5;display:block}
+.cart-item small{font-size:11px;color:var(--muted)}
+.cart-qty{margin-top:8px;display:flex;gap:10px;align-items:center}
+.qtybtn{background:none;border:1px solid var(--border);width:25px;height:25px}
+.muted{color:var(--muted);font-size:12px;line-height:1.7}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:18px;font-size:14px;font-weight:800}
+.empty{padding:100px 10px;text-align:center;color:var(--muted)}
+.empty svg{margin:auto;stroke:var(--wine)}
+.empty h3{font-family:'Playfair Display',serif;color:var(--ink);font-size:28px;font-weight:400}
+.modal{position:fixed;z-index:100;top:50%;left:50%;width:min(780px,calc(100% - 28px));max-height:calc(100vh - 36px);overflow-y:auto;transform:translate(-50%,-45%) scale(.96);background:#fffdf9;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr}
+.modal-grid>img{width:100%;height:470px;object-fit:cover;background:#ebded7}
+.modal-copy{padding:40px 30px;display:flex;flex-direction:column;justify-content:center;gap:15px}
+.modal-copy h3{font:400 31px/1.2 'Playfair Display',serif;margin:0}
+.modal-copy .price{font-size:17px}
+.sizes{display:flex;gap:7px;flex-wrap:wrap}
+.size{background:white;border:1px solid #ddd0cf;padding:10px 12px;font-size:11px;min-width:38px}
+.size.active{background:var(--wine);color:#fff;border-color:var(--wine)}
+.close-modal{position:absolute;right:10px;top:10px;z-index:2;background:#fff;border:none;border-radius:50%;width:35px;height:35px;font-size:22px}
+.search-wrap{position:fixed;top:0;left:0;right:0;z-index:101;background:#fffdf9;transform:translateY(-105%);transition:transform .3s;padding:32px max(30px,calc((100vw - 1000px)/2));box-shadow:var(--shadow)}
+.search-wrap.show{transform:translateY(0)}
+.search-row{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--wine);padding-bottom:10px}
+.search-row input{font:400 28px 'Playfair Display',serif;width:100%;border:0;background:transparent;outline:0}
+.search-row button{border:0;background:none;font-size:25px}
+.search-results{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:20px}
+.search-result{display:flex;align-items:center;gap:12px;border:1px solid var(--border);padding:6px;background:#fff;cursor:pointer;text-align:left;min-width:0}
+.search-result img{width:58px;height:69px;object-fit:cover}
+.search-result span{font-size:11px;font-weight:700;line-height:1.4}
+.search-result small{display:block;color:var(--wine);margin-top:4px}
+.mobile-nav{display:none}
+.toast{position:fixed;z-index:200;bottom:25px;left:50%;transform:translate(-50%,25px);background:#33212a;color:white;padding:13px 21px;box-shadow:var(--shadow);font-size:12px;opacity:0;pointer-events:none;transition:all .3s;max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:1180px){.container{width:min(100% - 66px,1360px)}
+.nav{gap:20px}
+.nav-links{gap:16px}
+.hero-left{padding-left:40px}
+.scroll-cue{left:40px}
+.hero h1{font-size:70px}
+.category{height:315px}
+.faq-layout{gap:40px}
+.footer-top{gap:30px}
+}
+@media(max-width:900px){.container{width:calc(100% - 38px)}
+.nav{height:74px;grid-template-columns:1fr auto 1fr}
+.nav-links{display:none}
+.hamburger{display:grid}
+.brand-main{font-size:24px}
+.brand-sub{font-size:7px}
+.hero{grid-template-columns:1fr 1fr;min-height:550px}
+.hero-left{padding:65px 15px 85px 30px}
+.hero h1{font-size:clamp(51px,6.4vw,65px)}
+.hero-visual{min-height:550px}
+.hero-stamp{width:110px;height:110px}
+.hero-stamp b{font-size:15px}
+.scroll-cue{left:30px}
+.categories{grid-template-columns:repeat(2,1fr)}
+.category{height:360px}
+.products{grid-template-columns:repeat(2,1fr)}
+.story-content{padding:48px 8%}
+.promise-item{padding:0 15px}
+.newsletter-inner{flex-direction:column;align-items:flex-start}
+.footer-top{grid-template-columns:repeat(2,1fr)}
+.mobile-nav{display:flex;position:fixed;top:0;bottom:0;left:0;z-index:99;width:min(350px,85vw);background:#fffdf9;transform:translateX(-106%);transition:transform .3s;flex-direction:column;padding:25px;gap:20px}
+.mobile-nav.show{transform:translateX(0)}
+.mobile-nav>a{padding:9px 0;border-bottom:1px solid var(--border);font:500 22px 'Playfair Display',serif}
+}
+@media(max-width:600px){.announcement{font-size:9px;letter-spacing:.04em}
+.demo-note{font-size:9px;letter-spacing:.03em}
+.nav{height:66px}
+.nav-actions{gap:0}
+.icon-btn{width:38px}
+.nav-actions .icon-btn:nth-child(2){display:none}
+.brand-main{font-size:22px}
+.brand-sub{letter-spacing:.23em;font-size:6px}
+.hero{display:flex;flex-direction:column-reverse}
+.hero-visual{height:390px;min-height:390px}
+.hero-visual img{object-position:right 31%}
+.hero-stamp{width:98px;height:98px;bottom:15px;right:15px}
+.hero-left{min-height:410px;padding:42px 20px 70px;align-items:flex-start}
+.hero h1{font-size:clamp(51px,13vw,67px);margin:16px 0}
+.hero h1 em{white-space:normal}
+.hero-desc{font-size:13px;line-height:1.7}
+.hero-btns{gap:9px}
+.btn{padding:14px 15px;min-height:46px;font-size:10px}
+.hero-trust{margin-top:21px}
+.scroll-cue{display:none}
+.perks{grid-template-columns:1fr;gap:0}
+.perk{justify-content:flex-start;padding:15px 22px;border-right:0;border-bottom:1px solid var(--border)}
+.perk small{margin-top:2px}
+.section{padding:65px 0}
+.section-header{align-items:flex-start;flex-direction:column;gap:10px;margin-bottom:24px}
+.section-header h2,.split-copy h2,.faq-copy h2{font-size:39px}
+.categories{gap:11px}
+.category{height:235px}
+.cat-content{left:12px;right:12px;bottom:13px}
+.cat-content h3{font-size:19px}
+.cat-content small{font-size:8px}
+.circle-arrow{width:28px;height:28px;font-size:15px}
+.products{gap:14px}
+.product-title{font-size:12px;min-height:55px}
+.product-meta{padding-top:11px}
+.quick{display:none}
+.price{font-size:12px;gap:6px}
+.price del{font-size:10px}
+.story{display:flex;flex-direction:column}
+.story-photo{min-height:355px}
+.story-content{padding:58px 25px}
+.promise{padding:45px 0}
+.promise-grid{grid-template-columns:1fr;gap:28px}
+.promise-item:not(:last-child){border:0;border-bottom:1px solid #ffffff30;padding-bottom:25px}
+.faq-layout{grid-template-columns:1fr;gap:30px}
+.newsletter{padding:42px 0}
+.newsletter h2{font-size:34px}
+.newsletter-form{min-width:0;width:100%}
+.footer{padding:52px 0 24px}
+.footer-top{grid-template-columns:repeat(2,1fr);gap:35px 20px;padding-bottom:40px}
+.footer-about{margin:15px 0}
+.footer-top>div:first-child{grid-column:1/-1}
+.footer h4{margin-bottom:17px}
+.modal-grid{grid-template-columns:1fr}
+.modal-grid>img{height:260px;object-position:50% 20%}
+.modal-copy{padding:20px}
+.modal-copy h3{font-size:24px}
+.search-wrap{padding:20px}
+.search-row input{font-size:21px}
+.search-results{grid-template-columns:1fr;max-height:55vh;overflow-y:auto}
+}
+
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+</style>
+</head>
+<body>
+<div class="announcement">Soft essentials. Confident you. <span>✦</span> Discover the LadyLuxe collection</div>
+<header class="header" id="header"><nav class="nav container" aria-label="Primary navigation"><div class="nav-links"><a href="#home">Home</a><a href="#collections">Collections</a><a href="#bestsellers">Best Sellers</a><a href="#about">Our Story</a></div><button class="icon-btn hamburger" id="menuButton" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button><a href="#home" class="brand" aria-label="LadyLuxe home"><span class="brand-main">Lady<span>Luxe</span></span><span class="brand-sub">Everyday Elegance</span></a><div class="nav-actions"><button class="icon-btn" id="searchButton" aria-label="Search products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="icon-btn" href="#contact" aria-label="Contact us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c0-4 3.4-7 7.5-7s7.5 3 7.5 7"/></svg></a><button class="icon-btn bag-btn" id="cartButton" aria-label="Open shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 8h16l-1.2 13H5.2L4 8ZM8 9V6a4 4 0 0 1 8 0v3"/></svg><span class="bag-count" id="bagCount">0</span></button></div></nav></header>
+<div class="demo-note">Website redesign concept • Client approval preview • No real orders or payments</div>
+<main>
+<section class="hero" id="home"><div class="hero-left"><div class="pill"><i></i> The LadyLuxe Edit</div><h1>Feel beautiful.<br><em>Every day.</em></h1><p class="hero-desc">Effortless comfort, feminine details, and a little everyday luxury. Discover intimates chosen to make you feel as beautiful as you are.</p><div class="hero-btns"><a href="#collections" class="btn">Explore Collections <span>↗</span></a><a href="#bestsellers" class="btn btn-light">Shop Best Sellers <span>→</span></a></div><div class="hero-trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="m8 12 3 3 5-6"/></svg> A considered collection for everyday confidence</div></div><div class="hero-visual"><img src="https://ladyluxes.store/cdn/shop/files/Model_wearing_lingerie_shop_banner_20260929171430.jpg?v=1791974448&amp;width=1500" alt="LadyLuxe editorial collection" fetchpriority="high" onerror="this.style.opacity='.15'"><div class="hero-stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3c2.5 4.5 5.5 7.5 8.5 9-3 1.5-6 4.5-8.5 9-2.5-4.5-5.5-7.5-8.5-9C6.5 10.5 9.5 7.5 12 3Z"/></svg><b>Made to<br>feel good.</b><small>LadyLuxe</small></div></div><span class="scroll-cue">Discover the edit</span></section>
+<div class="perks"><div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 7 12 2l9 5v10l-9 5-9-5V7Z"/><path d="m3 7 9 5 9-5m-9 5v10"/></svg><div><b>Curated essentials</b><small>Everyday comfort, thoughtfully chosen</small></div></div><div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="9"/></svg><div><b>Delivery across Pakistan</b><small>See shipping details at checkout</small></div></div><div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><div><b>Comfort-first selection</b><small>Confidence, fit and beautiful details</small></div></div></div>
+<section class="section" id="collections"><div class="container"><div class="section-header"><div><div class="eyebrow">Find your perfect fit</div><h2>Explore the collections<span style="color:var(--wine)">.</span></h2><p>Everyday favorites, designed around how you feel.</p></div><a href="#bestsellers" class="view-link">Explore all pieces <span>↗</span></a></div><div class="categories"><a class="category" href="#bestsellers" data-filter="Lingerie Sets"><img src="https://ladyluxes.store/cdn/shop/collections/WhatsApp_Image_2026-10-14_at_4.13.15_PM.jpg?v=1791976491&amp;width=750" alt="Lingerie sets collection" loading="lazy"><div class="cat-content"><div><small>Shop the edit</small><h3>Lingerie Sets</h3></div><span class="circle-arrow">↗</span></div></a><a class="category" href="#bestsellers" data-filter="Padded Bras"><img src="https://ladyluxes.store/cdn/shop/collections/Elegant_Pastel_Lingerie_Flatlay.png?v=1792058325&amp;width=750" alt="Padded bra collection" loading="lazy"><div class="cat-content"><div><small>Everyday shape</small><h3>Padded Bras</h3></div><span class="circle-arrow">↗</span></div></a><a class="category" href="#bestsellers" data-filter="Comfort Bras"><img src="https://ladyluxes.store/cdn/shop/collections/WhatsApp_Image_2026-10-15_at_5.09.01_PM.jpg?v=1792067000&amp;width=750" alt="Comfort bras collection" loading="lazy"><div class="cat-content"><div><small>Soft support</small><h3>Comfort Bras</h3></div><span class="circle-arrow">↗</span></div></a><a class="category" href="#bestsellers" data-filter="Bralettes"><img src="https://ladyluxes.store/cdn/shop/files/pomelli_photoshoot_image_1_1_1028.png?v=1793527970&amp;width=750" alt="Bralettes collection" loading="lazy"><div class="cat-content"><div><small>Easy elegance</small><h3>Bralettes</h3></div><span class="circle-arrow">↗</span></div></a></div></div></section>
+<section class="section products-section" id="bestsellers"><div class="container"><div class="section-header"><div><div class="eyebrow">The pieces you'll love</div><h2>Current favorites<span style="color:var(--wine)">.</span></h2><p>A few lovely things from the LadyLuxe collection.</p></div><a href="https://ladyluxes.store/collections/all" target="_blank" rel="noopener noreferrer" class="view-link">Visit existing store <span>↗</span></a></div><div class="tabs" id="tabs"><button class="tab active" data-tab="All">Shop all</button><button class="tab" data-tab="Comfort Bras">Comfort Bras</button><button class="tab" data-tab="Padded Bras">Padded Bras</button><button class="tab" data-tab="Bralettes">Bralettes</button></div><div class="products" id="productGrid"></div><div class="load-more"><button class="btn btn-light" id="showMore">Show more favorites <span>↗</span></button></div></div></section>
+<section class="story" id="about"><div class="story-photo"><img src="https://ladyluxes.store/cdn/shop/files/pomelli_photoshoot_image_1_1_1028.png?v=1793527970&amp;width=1500" alt="Soft fashion editorial featuring LadyLuxe essentials" loading="lazy"></div><div class="story-content"><div class="eyebrow">A different kind of everyday</div><h2>Confidence looks<br><em>good on you.</em></h2><div class="mini-divider"></div><p>From soft bralettes to beautiful supportive styles, LadyLuxe celebrates the quiet confidence of feeling comfortable in your own skin. Find your favorite fit, your way.</p><a href="#bestsellers" class="btn">Discover your fit <span>↗</span></a></div></section>
+<section class="promise"><div class="container promise-grid"><div class="promise-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4v16M19 4v16M5 8c7-6 7 6 14 0M5 16c7-6 7 6 14 0"/></svg><h3>Soft by nature</h3><p>Carefully selected styles that put comfort at the heart of the experience.</p></div><div class="promise-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21s-8-4.4-8-11A8 8 0 0 1 20 10c0 6.6-8 11-8 11Z"/><circle cx="12" cy="10" r="3"/></svg><h3>Here for your fit</h3><p>Browse comfort, padded and statement styles in one beautifully simple place.</p></div><div class="promise-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v18M3 12h18"/><path d="M5.5 5.5 18.5 18.5M18.5 5.5 5.5 18.5"/></svg><h3>Little daily luxuries</h3><p>Simple pieces that make every outfit and every day feel a little more special.</p></div></div></section>
+<section class="section" id="faq"><div class="container faq-layout"><div class="faq-copy"><div class="eyebrow">Before you fall in love</div><h2>A few good<br>questions<span style="color:var(--wine)">.</span></h2><p>Everything you need to know before you find your new favorite. For final policies and availability, refer to the live store.</p><a class="view-link" href="mailto:ladyluxe125@gmail.com">Ask us a question ↗</a></div><div class="faq-list" id="faqList"><div class="faq-item open"><button class="faq-q" aria-expanded="true">What can I shop at LadyLuxe?<span>−</span></button><div class="faq-a"><p>LadyLuxe offers women's lingerie essentials including bras, bralettes, panties and lingerie sets.</p></div></div><div class="faq-item"><button class="faq-q" aria-expanded="false">How long does delivery take?<span>+</span></button><div class="faq-a"><p>Orders are generally processed within 1–3 business days. Delivery in Pakistan is estimated at 3–7 business days after dispatch; remote areas may take longer.</p></div></div><div class="faq-item"><button class="faq-q" aria-expanded="false">Do you offer Cash on Delivery?<span>+</span></button><div class="faq-a"><p>Available methods, including Cash on Delivery where supported, are shown at checkout on the live store.</p></div></div><div class="faq-item"><button class="faq-q" aria-expanded="false">Can I return or exchange an item?<span>+</span></button><div class="faq-a"><p>For hygiene reasons, worn or washed intimate apparel generally cannot be returned. Contact LadyLuxe within 48 hours if an item arrives damaged, defective or incorrect. Review the live return policy for details.</p></div></div><div class="faq-item"><button class="faq-q" aria-expanded="false">How can I contact LadyLuxe?<span>+</span></button><div class="faq-a"><p>Email ladyluxe125@gmail.com or contact the store on WhatsApp at +92 307 1453711.</p></div></div></div></div></section>
+<section class="newsletter" id="contact"><div class="container newsletter-inner"><div><div class="eyebrow">Stay in the loop</div><h2>Love at first inbox.</h2><p>A little LadyLuxe inspiration, delivered with care. (Preview signup only.)</p></div><form class="newsletter-form" id="newsletterForm"><input type="email" id="newsletterEmail" placeholder="Your email address" aria-label="Your email address" required><button aria-label="Join mailing list" type="submit">↗</button></form></div></section>
+</main>
+<footer class="footer"><div class="container"><div class="footer-top"><div><a class="brand" href="#home"><span class="brand-main">Lady<span>Luxe</span></span><span class="brand-sub">Everyday Elegance</span></a><p class="footer-about">Everyday essentials with a little more elegance. Find something beautiful for every version of you.</p><div class="eyebrow" style="color:#e4bec9">Made for your everyday</div></div><div><h4>Shop</h4><div class="footer-links"><a href="#collections">Collections</a><a href="#bestsellers">Best Sellers</a><a href="#bestsellers">Comfort Bras</a><a href="#bestsellers">Bralettes</a></div></div><div><h4>Explore</h4><div class="footer-links"><a href="#about">Our Story</a><a href="#faq">FAQs</a><a href="https://ladyluxes.store/policies/shipping-policy" target="_blank" rel="noopener noreferrer">Shipping Policy ↗</a><a href="https://ladyluxes.store/policies/refund-policy" target="_blank" rel="noopener noreferrer">Returns Policy ↗</a></div></div><div><h4>Get in touch</h4><div class="footer-links"><a href="mailto:ladyluxe125@gmail.com">ladyluxe125@gmail.com</a><a href="https://wa.me/923071453711" target="_blank" rel="noopener noreferrer">WhatsApp us ↗</a><a href="https://ladyluxes.store" target="_blank" rel="noopener noreferrer">Current LadyLuxe store ↗</a></div></div></div><div class="footer-bottom"><span>© 2026 LadyLuxe · Redesign concept for client approval.</span><span>Concept design preview · No payments, account logins or live shopping integrations.</span></div></div></footer>
+<div class="overlay" id="overlay"></div><aside class="mobile-nav" id="mobileNav" aria-label="Mobile navigation"><div class="drawer-head" style="padding:0 0 20px"><span class="brand-main">Lady<span style="color:var(--wine)">Luxe</span></span><button class="icon-btn" data-close aria-label="Close menu">✕</button></div><a href="#home">Home</a><a href="#collections">Collections</a><a href="#bestsellers">Best Sellers</a><a href="#about">Our Story</a><a href="#faq">FAQs</a><a href="#contact">Contact</a></aside>
+<aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Demo shopping bag"><div class="drawer-head"><h3>Your Bag <small style="font:11px 'DM Sans';color:var(--muted)">(demo)</small></h3><button class="icon-btn" data-close aria-label="Close bag">✕</button></div><div class="drawer-main" id="cartItems"></div><div class="drawer-foot"><div class="cart-total"><span>Subtotal</span><span id="cartTotal">Rs. 0</span></div><p class="muted">This is a client preview. Checkout and payment processing are intentionally disabled.</p><button class="btn" style="width:100%" id="checkoutDemo">Demo only — checkout unavailable ↗</button></div></aside>
+<div class="modal" id="quickModal" role="dialog" aria-modal="true" aria-label="Product quick view"><button class="close-modal" data-close aria-label="Close product preview">×</button><div class="modal-grid"><img id="modalImg" alt="Product image"><div class="modal-copy"><span class="eyebrow">LadyLuxe Collection</span><h3 id="modalTitle"></h3><div class="price" id="modalPrice"></div><p class="muted">A beautiful addition to your everyday rotation. Select a sample size to try this interactive design concept.</p><b style="font-size:11px">Size (illustrative)</b><div class="sizes" id="sizePicker"></div><button class="btn" id="modalAdd">Add to Demo Bag →</button><p class="muted">Availability and fit are confirmed on the live store.</p></div></div></div>
+<div class="search-wrap" id="searchWrap" role="dialog" aria-modal="true" aria-label="Search"><div class="search-row"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#682b3d"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="searchInput" placeholder="Search the collection…" autocomplete="off" aria-label="Search products"><button data-close aria-label="Close search">×</button></div><div class="search-results" id="searchResults"></div></div><div class="toast" id="toast" aria-live="polite"></div>
+<script>
+(function(){'use strict';
+const CDN='https://ladyluxes.store/cdn/shop/files/';
+const products=[
+{id:1,title:'Ivory Floral Front Closure Comfort Bra',price:949,compare:1699,category:'Comfort Bras',image:CDN+'WhatsAppImage2026-10-15at4.31.23PM_1.jpg?v=1792066325&width=750'},
+{id:2,title:'Black Floral Underwired Bra',price:1049,compare:1799,category:'Padded Bras',image:CDN+'WhatsAppImage2026-10-20at3.13.37PM.jpg?v=1792492122&width=750'},
+{id:3,title:'Printed Spaghetti Strap Bralette · Pack of 3',price:999,compare:1699,category:'Bralettes',image:CDN+'pomelli_photoshoot_image_4_5_1023_1_ecd146a9-8eab-427a-89f0-b315d29a14d9.png?v=1792925549&width=750'},
+{id:4,title:'Black Lace Full Coverage Bra',price:1199,compare:1999,category:'Comfort Bras',image:CDN+'WhatsAppImage2026-10-15at3.29.10PM_1_d5d35e2c-8266-4c2a-9fe2-285677022a16.jpg?v=1792060782&width=750'},
+{id:5,title:'Beige Floral Print Supportive Bra',price:1049,compare:1799,category:'Padded Bras',image:CDN+'WhatsAppImage2026-10-20at3.13.37PM_1.jpg?v=1792492122&width=750'},
+{id:6,title:'Elegant Everyday Bralette',price:999,compare:1699,category:'Bralettes',image:CDN+'pomelli_photoshoot_image_4_5_1023_342295e9-3963-4932-b4b4-7ff04e3a9c47.png?v=1792925549&width=750'},
+{id:7,title:'Soft Floral Everyday Bra',price:1049,compare:1799,category:'Comfort Bras',image:CDN+'WhatsAppImage2026-10-15at4.31.23PM.jpg?v=1792066326&width=750'},
+{id:8,title:'Delicate Lace Everyday Essential',price:1199,compare:1999,category:'Lingerie Sets',image:CDN+'WhatsAppImage2026-10-15at3.29.11PM_acc8bc20-8e32-41c6-9b45-d6dbe8d42f67.jpg?v=1792060782&width=750'}
+];
+const $=id=>document.getElementById(id);const fmt=n=>'Rs. '+n.toLocaleString('en-PK');let filter='All';let expanded=false;let modalProduct=null;let size='34';let cart=[];let toastTimer;const saved=new Set();
+function showToast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function productCard(p){return '<article class="product"><div class="product-photo"><img src="'+p.image.replace(/&/g,'&amp;')+'" alt="'+p.title+'" loading="lazy" onerror="this.style.opacity=\'.3\'"><span class="sale">Sale</span><button class="heart '+(saved.has(p.id)?'selected':'')+'" data-wish="'+p.id+'" aria-label="Save product">'+(saved.has(p.id)?'♥':'♡')+'</button><button class="quick" data-view="'+p.id+'">Quick view ↗</button></div><div class="product-meta"><div class="rating">✦ ✦ ✦ <span>LadyLuxe edit</span></div><h3 class="product-title">'+p.title+'</h3><div class="price"><span>'+fmt(p.price)+'</span><del>'+fmt(p.compare)+'</del></div><button data-view="'+p.id+'" style="background:none;border:0;padding:12px 0;color:var(--wine);font-weight:700;font-size:11px;text-decoration:underline;text-underline-offset:4px">View details ↗</button></div></article>'}
+function renderProducts(){let found=products.filter(p=>filter==='All'||p.category===filter);$('productGrid').innerHTML=(expanded?found:found.slice(0,4)).map(productCard).join('');$('showMore').style.display=found.length>4?'inline-flex':'none';$('showMore').innerHTML=expanded?'Show fewer pieces ↑':'Show more favorites ↗'}
+function backdrop(which){const active=['cartDrawer','quickModal','mobileNav','searchWrap'].some(id=>$(id).classList.contains('show'));$('overlay').classList.toggle('show',active);document.body.classList.toggle('lock',active)}
+function closeAll(){['cartDrawer','quickModal','mobileNav','searchWrap'].forEach(id=>$(id).classList.remove('show'));backdrop()}
+function openOne(id){closeAll();$(id).classList.add('show');backdrop();if(id==='searchWrap'){setTimeout(()=>$('searchInput').focus(),250)}}
+function openModal(id){modalProduct=products.find(p=>p.id===id);if(!modalProduct)return;size='34';$('modalImg').src=modalProduct.image;$('modalTitle').textContent=modalProduct.title;$('modalPrice').innerHTML=fmt(modalProduct.price)+' <del>'+fmt(modalProduct.compare)+'</del>';$('sizePicker').innerHTML=['32','34','36','38','40','42'].map(s=>'<button class="size '+(s===size?'active':'')+'" data-size="'+s+'">'+s+'</button>').join('');openOne('quickModal')}
+function addToBag(){if(!modalProduct)return;const row=cart.find(x=>x.id===modalProduct.id&&x.size===size);if(row)row.qty++;else cart.push({id:modalProduct.id,size:size,qty:1});renderCart();openOne('cartDrawer');showToast('Added to your demo bag')}
+function renderCart(){const count=cart.reduce((a,x)=>a+x.qty,0);$('bagCount').textContent=count;let total=cart.reduce((a,x)=>a+(products.find(p=>p.id===x.id)?.price||0)*x.qty,0);$('cartTotal').textContent=fmt(total);if(!cart.length){$('cartItems').innerHTML='<div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M4 8h16l-1 13H5L4 8ZM8 9V6a4 4 0 0 1 8 0v3"/></svg><h3>Your bag is empty</h3><p class="muted">Find something lovely in the collection.</p><button class="btn" data-close>Continue exploring →</button></div>';return}$('cartItems').innerHTML=cart.map((x,i)=>{const p=products.find(p=>p.id===x.id);return '<div class="cart-item"><img src="'+p.image.replace(/&/g,'&amp;')+'" alt="'+p.title+'"><div><strong>'+p.title+'</strong><small>Size '+x.size+' · '+fmt(p.price)+'</small><div class="cart-qty"><button class="qtybtn" data-qty="'+i+':-1" aria-label="Reduce quantity">−</button><small>'+x.qty+'</small><button class="qtybtn" data-qty="'+i+':1" aria-label="Increase quantity">+</button><button data-remove="'+i+'" style="margin-left:10px;border:0;background:none;color:var(--wine);font-size:10px;text-decoration:underline">Remove</button></div></div></div>'}).join('')}
+function search(){const term=$('searchInput').value.toLowerCase().trim();const found=products.filter(p=>p.title.toLowerCase().includes(term)||p.category.toLowerCase().includes(term)).slice(0,6);$('searchResults').innerHTML=found.length?found.map(p=>'<button class="search-result" data-view="'+p.id+'"><img src="'+p.image.replace(/&/g,'&amp;')+'" alt=""><span>'+p.title+'<small>'+fmt(p.price)+'</small></span></button>').join(''):'<p class="muted">No matching pieces. Try “bra”, “floral” or “lace”.</p>'}
+$('menuButton').addEventListener('click',()=>openOne('mobileNav'));$('searchButton').addEventListener('click',()=>{search();openOne('searchWrap')});$('cartButton').addEventListener('click',()=>{renderCart();openOne('cartDrawer')});$('overlay').addEventListener('click',closeAll);document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeAll));$('searchInput').addEventListener('input',search);$('showMore').addEventListener('click',()=>{expanded=!expanded;renderProducts()});$('modalAdd').addEventListener('click',addToBag);$('checkoutDemo').addEventListener('click',()=>showToast('Preview only: checkout is not connected.'));
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;filter=b.dataset.tab;expanded=false;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));renderProducts()});
+document.querySelectorAll('.category').forEach(el=>el.addEventListener('click',()=>{filter=el.dataset.filter;expanded=false;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===filter));renderProducts()}));
+document.addEventListener('click',e=>{const view=e.target.closest('[data-view]');if(view){openModal(Number(view.dataset.view));return}const wish=e.target.closest('[data-wish]');if(wish){const id=Number(wish.dataset.wish);saved.has(id)?saved.delete(id):saved.add(id);renderProducts();showToast(saved.has(id)?'Saved to your demo wishlist':'Removed from wishlist');return}const sz=e.target.closest('[data-size]');if(sz){size=sz.dataset.size;document.querySelectorAll('[data-size]').forEach(b=>b.classList.toggle('active',b===sz));return}const q=e.target.closest('[data-qty]');if(q){const [i,d]=q.dataset.qty.split(':').map(Number);cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);renderCart();return}const rm=e.target.closest('[data-remove]');if(rm){cart.splice(Number(rm.dataset.remove),1);renderCart();return}if(e.target.closest('#cartItems [data-close]'))closeAll();if(e.target.closest('.mobile-nav a'))closeAll()});
+$('faqList').addEventListener('click',e=>{const b=e.target.closest('.faq-q');if(!b)return;const item=b.closest('.faq-item');const willOpen=!item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open');el.querySelector('.faq-q').setAttribute('aria-expanded','false');el.querySelector('.faq-q span').textContent='+'});if(willOpen){item.classList.add('open');b.setAttribute('aria-expanded','true');b.querySelector('span').textContent='−'}});
+$('newsletterForm').addEventListener('submit',e=>{e.preventDefault();if(!$('newsletterEmail').checkValidity()){return}showToast('Thanks! This is a design preview; no email was submitted.');$('newsletterEmail').value='' });document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});window.addEventListener('scroll',()=>{$('header').classList.toggle('scrolled',window.scrollY>20)},{passive:true});renderProducts();renderCart();search();
+})();
+</script>
+</body>
+</html>
